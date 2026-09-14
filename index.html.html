@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Simply Gym — Your first workout, without the intimidation</title>
+<meta name="description" content="Simply Gym is built for people who've never set foot in a gym before. Book a free trial and see for yourself.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Karla:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --sand:#F4EFE6;
+    --ink:#262420;
+    --sage:#708C69;
+    --sage-dark:#586E52;
+    --berry:#B5495B;
+    --berry-dark:#953C4B;
+    --butter:#F0C464;
+    --cream:#FFFDF8;
+    --line: rgba(38,36,32,0.14);
+    --max: 1180px;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important;}
+  }
+
+  body{
+    margin:0;
+    background:var(--sand);
+    color:var(--ink);
+    font-family:'Karla', sans-serif;
+    font-size:17px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  h1,h2,h3{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    line-height:1.1;
+    margin:0 0 0.5em;
+    color:var(--ink);
+  }
+
+  p{margin:0 0 1em;}
+  a{color:inherit;}
+  img,svg{max-width:100%;display:block;}
+
+  .wrap{
+    max-width:var(--max);
+    margin:0 auto;
+    padding:0 24px;
+  }
+
+  /* Accessibility: visible focus + skip link */
+  a:focus-visible, button:focus-visible, input:focus-visible, summary:focus-visible{
+    outline:3px solid var(--sage-dark);
+    outline-offset:3px;
+    border-radius:2px;
+  }
+  .skip-link{
+    position:absolute;
+    left:-999px;
+    top:auto;
+    background:var(--ink);
+    color:var(--cream);
+    padding:12px 20px;
+    z-index:100;
+    border-radius:0 0 8px 0;
+  }
+  .skip-link:focus{
+    left:0;
+    top:0;
+  }
+
+  /* ---------- Header ---------- */
+  header{
+    position:sticky;
+    top:0;
+    z-index:50;
+    background:rgba(244,239,230,0.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:18px 0;
+  }
+  .logo{
+    font-family:'Fraunces', serif;
+    font-weight:700;
+    font-size:1.4rem;
+    letter-spacing:-0.01em;
+    text-decoration:none;
+    color:var(--ink);
+  }
+  .logo span{color:var(--berry);}
+  .nav-links{
+    display:flex;
+    align-items:center;
+    gap:32px;
+    list-style:none;
+    margin:0;
+    padding:0;
+  }
+  .nav-links a{
+    text-decoration:none;
+    font-weight:600;
+    font-size:0.98rem;
+  }
+  .nav-links a:not(.btn):hover{color:var(--sage-dark);}
+
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    border:none;
+    cursor:pointer;
+    font-family:'Karla', sans-serif;
+    font-weight:700;
+    font-size:1rem;
+    padding:14px 26px;
+    border-radius:100px;
+    text-decoration:none;
+    transition:transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .btn-primary{
+    background:var(--berry);
+    color:var(--cream);
+  }
+  .btn-primary:hover{
+    background:var(--berry-dark);
+    transform:translateY(-1px);
+  }
+  .btn-small{padding:10px 20px; font-size:0.92rem;}
+
+  .nav-toggle{
+    display:none;
+    background:none;
+    border:none;
+    cursor:pointer;
+    padding:8px;
+  }
+  .nav-toggle svg{width:26px;height:26px;}
+
+  /* ---------- Hero ---------- */
+  .hero{
+    padding:72px 0 96px;
+  }
+  .hero-grid{
+    display:grid;
+    grid-template-columns:1.05fr 0.95fr;
+    gap:56px;
+    align-items:center;
+  }
+  .hero h1{
+    font-size:clamp(2.4rem, 4.6vw, 3.6rem);
+    max-width:14ch;
+  }
+  .hero .lede{
+    font-size:1.15rem;
+    max-width:46ch;
+    color:#4a473f;
+  }
+  .hero-cta-row{
+    display:flex;
+    align-items:center;
+    gap:18px;
+    flex-wrap:wrap;
+    margin-top:28px;
+  }
+  .hero-note{
+    font-size:0.92rem;
+    color:#5c5850;
+  }
+  .hero-art{
+    background:var(--cream);
+    border-radius:28px;
+    padding:20px;
+    border:1px solid var(--line);
+  }
+
+  /* ---------- Section basics ---------- */
+  section{padding:88px 0;}
+  .section-head{
+    max-width:640px;
+    margin-bottom:48px;
+  }
+  .section-head h2{
+    font-size:clamp(1.8rem, 3vw, 2.3rem);
+  }
+  .section-head p{
+    font-size:1.05rem;
+    color:#4a473f;
+  }
+
+  /* ---------- Benefits (staggered, unequal) ---------- */
+  .benefits{
+    background:var(--cream);
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+  }
+  .benefit-list{
+    display:grid;
+    grid-template-columns:repeat(6, 1fr);
+    gap:28px;
+  }
+  .benefit{
+    padding:32px 28px;
+    border-radius:20px;
+  }
+  .benefit h3{
+    font-size:1.25rem;
+    margin-bottom:0.4em;
+  }
+  .benefit p{color:#4a473f; margin-bottom:0;}
+  .benefit-icon{
+    width:44px;height:44px;
+    margin-bottom:18px;
+    color:var(--sage-dark);
+  }
+  .b1{grid-column:span 3; background:var(--sand);}
+  .b2{grid-column:span 3; background:var(--sand);}
+  .b3{grid-column:span 4; background:var(--butter); color:var(--ink);}
+  .b4{grid-column:span 2; background:var(--sage); color:var(--cream);}
+  .b4 h3{color:var(--cream);}
+  .b4 p{color:rgba(255,253,248,0.9);}
+  .b4 .benefit-icon{color:var(--cream);}
+
+  /* ---------- How it works ---------- */
+  .steps{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:40px;
+  }
+  .step{position:relative; padding-left:0;}
+  .step-num{
+    font-family:'Fraunces', serif;
+    font-size:2.6rem;
+    font-weight:600;
+    color:var(--berry);
+    display:block;
+    margin-bottom:8px;
+  }
+  .step h3{font-size:1.2rem;}
+  .step p{color:#4a473f;}
+
+  /* ---------- Social proof ---------- */
+  .proof{
+    background:var(--sage);
+    color:var(--cream);
+  }
+  .proof-grid{
+    display:grid;
+    grid-template-columns:1.3fr 1fr;
+    gap:56px;
+    align-items:start;
+  }
+  .quote{
+    font-family:'Fraunces', serif;
+    font-size:clamp(1.5rem, 2.6vw, 2rem);
+    font-weight:500;
+    line-height:1.35;
+  }
+  .quote-attr{
+    margin-top:20px;
+    font-family:'Karla',sans-serif;
+    font-weight:600;
+    font-size:1rem;
+    color:rgba(255,253,248,0.85);
+  }
+  .stat-list{
+    display:flex;
+    flex-direction:column;
+    gap:26px;
+  }
+  .stat{
+    border-top:1px solid rgba(255,253,248,0.28);
+    padding-top:18px;
+  }
+  .stat-num{
+    font-family:'Fraunces', serif;
+    font-size:2.2rem;
+    font-weight:600;
+    display:block;
+  }
+  .stat-label{color:rgba(255,253,248,0.85); font-size:0.95rem;}
+
+  /* ---------- Pricing ---------- */
+  .pricing-table{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    border-top:1px solid var(--line);
+  }
+  .plan{
+    padding:36px 28px;
+    border-right:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+    display:flex;
+    flex-direction:column;
+  }
+  .plan:last-child{border-right:none;}
+  .plan.featured{
+    background:var(--cream);
+    position:relative;
+  }
+  .plan-tag{
+    display:inline-block;
+    background:var(--berry);
+    color:var(--cream);
+    font-size:0.8rem;
+    font-weight:700;
+    padding:5px 12px;
+    border-radius:100px;
+    margin-bottom:14px;
+    width:fit-content;
+  }
+  .plan h3{font-size:1.3rem; margin-bottom:6px;}
+  .plan .price{
+    font-family:'Fraunces', serif;
+    font-size:2.4rem;
+    font-weight:600;
+    margin:10px 0 4px;
+  }
+  .price small{font-family:'Karla',sans-serif; font-size:1rem; font-weight:600; color:#5c5850;}
+  .plan-desc{color:#4a473f; margin-bottom:20px;}
+  .plan-features{
+    list-style:none;
+    padding:0;
+    margin:0 0 28px;
+    flex-grow:1;
+  }
+  .plan-features li{
+    padding:8px 0 8px 26px;
+    position:relative;
+    border-bottom:1px solid var(--line);
+    font-size:0.95rem;
+  }
+  .plan-features li:last-child{border-bottom:none;}
+  .plan-features li::before{
+    content:"";
+    position:absolute;
+    left:0;
+    top:13px;
+    width:14px;height:8px;
+    border-left:2px solid var(--sage-dark);
+    border-bottom:2px solid var(--sage-dark);
+    transform:rotate(-45deg);
+  }
+  .plan-btn{
+    text-align:center;
+    justify-content:center;
+    width:100%;
+  }
+  .plan-btn.ghost{
+    background:transparent;
+    color:var(--ink);
+    border:2px solid var(--ink);
+  }
+  .plan-btn.ghost:hover{background:var(--ink); color:var(--cream);}
+
+  /* ---------- FAQ ---------- */
+  .faq-list{
+    max-width:760px;
+  }
+  details{
+    border-bottom:1px solid var(--line);
+    padding:22px 0;
+  }
+  summary{
+    cursor:pointer;
+    font-family:'Fraunces', serif;
+    font-size:1.15rem;
+    font-weight:500;
+    list-style:none;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:20px;
+  }
+  summary::-webkit-details-marker{display:none;}
+  .faq-plus{
+    flex-shrink:0;
+    width:22px;height:22px;
+    position:relative;
+  }
+  .faq-plus::before,.faq-plus::after{
+    content:"";
+    position:absolute;
+    background:var(--ink);
+    transition:transform 0.2s ease;
+  }
+  .faq-plus::before{width:100%;height:2px;top:50%;left:0;transform:translateY(-50%);}
+  .faq-plus::after{width:2px;height:100%;left:50%;top:0;transform:translateX(-50%);}
+  details[open] .faq-plus::after{transform:translateX(-50%) rotate(90deg); opacity:0;}
+  details p{
+    margin:14px 0 0;
+    color:#4a473f;
+    max-width:64ch;
+  }
+
+  /* ---------- Final CTA ---------- */
+  .final-cta{
+    background:var(--ink);
+    color:var(--cream);
+    text-align:center;
+  }
+  .final-cta h2{
+    color:var(--cream);
+    font-size:clamp(2rem,4vw,2.8rem);
+    max-width:16ch;
+    margin:0 auto 0.4em;
+  }
+  .final-cta p{
+    color:rgba(255,253,248,0.8);
+    max-width:44ch;
+    margin:0 auto 32px;
+  }
+
+  /* ---------- Footer ---------- */
+  footer{
+    background:var(--sand);
+    border-top:1px solid var(--line);
+    padding:56px 0 32px;
+  }
+  .foot-grid{
+    display:grid;
+    grid-template-columns:1.4fr 1fr 1fr 1fr;
+    gap:32px;
+    margin-bottom:40px;
+  }
+  .foot-logo{
+    font-family:'Fraunces', serif;
+    font-weight:700;
+    font-size:1.3rem;
+    margin-bottom:10px;
+  }
+  .foot-logo span{color:var(--berry);}
+  footer h4{
+    font-size:0.95rem;
+    margin-bottom:14px;
+    font-weight:700;
+  }
+  footer ul{list-style:none; padding:0; margin:0;}
+  footer li{margin-bottom:10px;}
+  footer a{text-decoration:none; color:#4a473f; font-size:0.95rem;}
+  footer a:hover{color:var(--sage-dark);}
+  .foot-bottom{
+    border-top:1px solid var(--line);
+    padding-top:24px;
+    display:flex;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:12px;
+    font-size:0.88rem;
+    color:#6b675e;
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 900px){
+    .hero-grid{grid-template-columns:1fr; gap:40px;}
+    .hero-art{order:-1;}
+    .benefit-list{grid-template-columns:repeat(2,1fr);}
+    .b1,.b2,.b3,.b4{grid-column:span 1;}
+    .steps{grid-template-columns:1fr; gap:32px;}
+    .proof-grid{grid-template-columns:1fr; gap:36px;}
+    .pricing-table{grid-template-columns:1fr;}
+    .plan{border-right:none;}
+    .foot-grid{grid-template-columns:1fr 1fr;}
+  }
+
+  @media (max-width: 640px){
+    .nav-links{
+      position:fixed;
+      inset:64px 0 auto 0;
+      background:var(--sand);
+      flex-direction:column;
+      align-items:flex-start;
+      padding:24px;
+      border-bottom:1px solid var(--line);
+      gap:18px;
+      transform:translateY(-8px);
+      opacity:0;
+      pointer-events:none;
+      transition:opacity 0.18s ease, transform 0.18s ease;
+    }
+    .nav-links.open{
+      opacity:1;
+      transform:translateY(0);
+      pointer-events:auto;
+    }
+    .nav-toggle{display:block;}
+    .nav-cta{display:none;}
+    .nav-links .nav-cta{display:inline-flex;}
+    .benefit-list{grid-template-columns:1fr;}
+    section{padding:64px 0;}
+    .hero{padding:48px 0 64px;}
+    .foot-grid{grid-template-columns:1fr 1fr;}
+  }
+</style>
+</head>
+<body>
+
+<a href="#main" class="skip-link">Skip to main content</a>
+
+<header>
+  <div class="wrap nav">
+    <a href="#top" class="logo">Simply<span>Gym</span></a>
+    <button class="nav-toggle" aria-expanded="false" aria-controls="nav-links" aria-label="Open menu" id="navToggle">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="#benefits">Why us</a></li>
+      <li><a href="#how">How it works</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li class="nav-cta"><a href="#book" class="btn btn-primary btn-small">Book a free trial</a></li>
+    </ul>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- HERO -->
+  <section class="hero" id="top">
+    <div class="wrap hero-grid">
+      <div>
+        <h1>Your first workout doesn't have to be intimidating.</h1>
+        <p class="lede">Simply Gym is built for people who have never lifted a weight or worn gym clothes in public. Friendly trainers, a floor you can actually read, and a free trial so you can see for yourself before deciding anything.</p>
+        <div class="hero-cta-row">
+          <a href="#book" class="btn btn-primary">Book your free trial</a>
+          <span class="hero-note">No credit card. No pressure. Just show up.</span>
+        </div>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <svg viewBox="0 0 480 420" width="100%" role="img" aria-label="Illustration of a person stretching beside an open gym door">
+          <rect x="0" y="0" width="480" height="420" rx="16" fill="#F4EFE6"/>
+          <!-- open door -->
+          <rect x="40" y="60" width="150" height="300" rx="6" fill="#FFFDF8" stroke="#262420" stroke-width="2"/>
+          <circle cx="165" cy="210" r="5" fill="#262420"/>
+          <!-- floor line -->
+          <line x1="20" y1="360" x2="460" y2="360" stroke="#262420" stroke-width="2"/>
+          <!-- figure stretching, simple line art -->
+          <g stroke="#262420" stroke-width="6" stroke-linecap="round" fill="none">
+            <circle cx="300" cy="140" r="22" fill="#F0C464" stroke="none"/>
+            <path d="M300 162 L300 240"/>
+            <path d="M300 180 L250 220"/>
+            <path d="M300 180 L360 150"/>
+            <path d="M300 240 L265 320"/>
+            <path d="M300 240 L340 320"/>
+          </g>
+          <!-- welcome mat -->
+          <rect x="230" y="330" width="150" height="20" rx="4" fill="#B5495B"/>
+          <!-- simple plant -->
+          <g stroke="#708C69" stroke-width="5" stroke-linecap="round" fill="none">
+            <path d="M420 360 L420 300"/>
+            <path d="M420 320 C400 300 395 280 405 265"/>
+            <path d="M420 310 C440 295 448 275 438 258"/>
+          </g>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- BENEFITS -->
+  <section class="benefits" id="benefits">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Why beginners start here</h2>
+        <p>We designed the whole experience around one question: what actually stops someone from walking through the door?</p>
+      </div>
+      <div class="benefit-list">
+        <div class="benefit b1">
+          <svg class="benefit-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16v16H4z"/><path d="M4 12h16M12 4v16"/></svg>
+          <h3>A floor plan you can actually read</h3>
+          <p>Color-coded zones and clear signs mean you'll never have to guess where the "scary part" is.</p>
+        </div>
+        <div class="benefit b2">
+          <svg class="benefit-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 12a4 4 0 100-8 4 4 0 000 8z"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>
+          <h3>Trainers who explain the "why," not just the "what"</h3>
+          <p>Every new person gets a free 30-minute walkthrough — no jargon, just plain answers.</p>
+        </div>
+        <div class="benefit b3">
+          <svg class="benefit-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 6h16M4 12h16M4 18h10"/></svg>
+          <h3>Equipment labeled in plain English</h3>
+          <p>Every machine has a short, honest description of what it does and how to start light. No guessing what a "lat pulldown" is for.</p>
+        </div>
+        <div class="benefit b4">
+          <svg class="benefit-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M9 12l2 2 4-4"/></svg>
+          <h3>Classes capped at 12 people</h3>
+          <p>Small enough that the instructor actually notices you.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section id="how">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Getting started takes three steps</h2>
+        <p>Here's exactly what happens between booking and your first workout.</p>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <span class="step-num">1</span>
+          <h3>Book your visit online</h3>
+          <p>Pick a day and time that works. Takes about a minute — no long forms.</p>
+        </div>
+        <div class="step">
+          <span class="step-num">2</span>
+          <h3>Get a 30-minute walkthrough</h3>
+          <p>A trainer shows you around, explains the equipment, and answers whatever you're wondering about.</p>
+        </div>
+        <div class="step">
+          <span class="step-num">3</span>
+          <h3>Try a class, completely free</h3>
+          <p>No obligation, no upsell conversation. Decide afterward if it's for you.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOCIAL PROOF -->
+  <section class="proof">
+    <div class="wrap proof-grid">
+      <div>
+        <p class="quote">"I'd never set foot in a gym before turning 40. The trainer who showed me around didn't make me feel one bit behind. Three months later, I actually look forward to Tuesdays."</p>
+        <p class="quote-attr">— Amara R., joined nine months ago</p>
+      </div>
+      <div class="stat-list">
+        <div class="stat">
+          <span class="stat-num">4.9 / 5</span>
+          <span class="stat-label">average rating from beginner reviews</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num">2,300+</span>
+          <span class="stat-label">first-timers welcomed last year</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num">12</span>
+          <span class="stat-label">people max in a beginner class</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section id="pricing">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Simple pricing, no fine print</h2>
+        <p>Start with a free trial. Move to a plan whenever you're ready — cancel anytime, no lock-in.</p>
+      </div>
+    </div>
+    <div class="wrap" style="padding:0;">
+      <div class="pricing-table">
+        <div class="plan">
+          <h3>Drop-in</h3>
+          <p class="price">$15<small>/visit</small></p>
+          <p class="plan-desc">For trying things out at your own pace.</p>
+          <ul class="plan-features">
+            <li>Full gym floor access</li>
+            <li>One group class included</li>
+            <li>No commitment</li>
+          </ul>
+          <a href="#book" class="btn plan-btn ghost">Book a visit</a>
+        </div>
+        <div class="plan featured">
+          <span class="plan-tag">Most popular with beginners</span>
+          <h3>Starter</h3>
+          <p class="price">$49<small>/month</small></p>
+          <p class="plan-desc">Everything you need for your first few months.</p>
+          <ul class="plan-features">
+            <li>Unlimited gym floor access</li>
+            <li>4 group classes a month</li>
+            <li>Free onboarding walkthrough</li>
+            <li>Cancel anytime</li>
+          </ul>
+          <a href="#book" class="btn plan-btn btn-primary">Start free trial</a>
+        </div>
+        <div class="plan">
+          <h3>All-Access</h3>
+          <p class="price">$79<small>/month</small></p>
+          <p class="plan-desc">For once you've found your rhythm.</p>
+          <ul class="plan-features">
+            <li>Unlimited gym floor access</li>
+            <li>Unlimited group classes</li>
+            <li>One trainer check-in monthly</li>
+            <li>Cancel anytime</li>
+          </ul>
+          <a href="#book" class="btn plan-btn ghost">Start free trial</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Questions people ask before their first visit</h2>
+      </div>
+      <div class="faq-list">
+        <details>
+          <summary>Do I need to know how to use the equipment?<span class="faq-plus"></span></summary>
+          <p>No. Your free walkthrough covers exactly that — a trainer shows you how each machine works and what it's for, at whatever pace you need.</p>
+        </details>
+        <details>
+          <summary>What should I wear?<span class="faq-plus"></span></summary>
+          <p>Whatever you're comfortable moving in. Sneakers and clothes you don't mind sweating in are the only real requirements.</p>
+        </details>
+        <details>
+          <summary>Is there a minimum commitment?<span class="faq-plus"></span></summary>
+          <p>No. The free trial has zero obligation, and every membership can be cancelled anytime with no fees.</p>
+        </details>
+        <details>
+          <summary>What if I'm out of shape?<span class="faq-plus"></span></summary>
+          <p>That's who this gym is built for. Classes are capped at 12 people specifically so instructors can adjust pace for wherever you're starting from.</p>
+        </details>
+        <details>
+          <summary>Can I bring a friend to my free trial?<span class="faq-plus"></span></summary>
+          <p>Yes — bring one guest along at no extra cost. Just mention it when you book.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA / BOOKING -->
+  <section class="final-cta" id="book">
+    <div class="wrap">
+      <h2>Ready to see it for yourself?</h2>
+      <p>Book a free trial and walkthrough. Takes a minute, and there's no pressure to join anything afterward.</p>
+      <form id="bookingForm" action="https://formsubmit.co/zishanos578@gmail.com" method="POST" style="max-width:480px;margin:0 auto;text-align:left;">
+        <input type="hidden" name="_subject" value="New free trial booking — Simply Gym">
+        <input type="hidden" name="_captcha" value="false">
+        <div style="margin-bottom:16px;">
+          <label for="name" style="display:block;font-size:0.9rem;margin-bottom:6px;color:rgba(255,253,248,0.85);">Full name</label>
+          <input type="text" id="name" name="name" required
+            style="width:100%;padding:12px 14px;border-radius:10px;border:1px solid rgba(255,253,248,0.3);background:rgba(255,253,248,0.08);color:var(--cream);font-family:'Karla',sans-serif;font-size:1rem;">
+        </div>
+        <div style="margin-bottom:16px;">
+          <label for="email" style="display:block;font-size:0.9rem;margin-bottom:6px;color:rgba(255,253,248,0.85);">Email</label>
+          <input type="email" id="email" name="email" required
+            style="width:100%;padding:12px 14px;border-radius:10px;border:1px solid rgba(255,253,248,0.3);background:rgba(255,253,248,0.08);color:var(--cream);font-family:'Karla',sans-serif;font-size:1rem;">
+        </div>
+        <div style="margin-bottom:24px;">
+          <label for="preferred-day" style="display:block;font-size:0.9rem;margin-bottom:6px;color:rgba(255,253,248,0.85);">Preferred day to visit</label>
+          <input type="date" id="preferred-day" name="preferred-day"
+            style="width:100%;padding:12px 14px;border-radius:10px;border:1px solid rgba(255,253,248,0.3);background:rgba(255,253,248,0.08);color:var(--cream);font-family:'Karla',sans-serif;font-size:1rem;color-scheme:dark;">
+        </div>
+        <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;">Book my free trial</button>
+        <p id="formStatus" role="status" style="margin-top:14px;font-size:0.9rem;color:rgba(255,253,248,0.8);"></p>
+      </form>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="foot-logo">Simply<span>Gym</span></div>
+        <p style="color:#4a473f;max-width:32ch;">A gym for people who've never been to one. One location, judgment-free, always.</p>
+      </div>
+      <div>
+        <h4>Visit</h4>
+        <ul>
+          <li><a href="#benefits">Why us</a></li>
+          <li><a href="#how">How it works</a></li>
+          <li><a href="#pricing">Pricing</a></li>
+          <li><a href="#faq">FAQ</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Hours</h4>
+        <ul style="color:#4a473f;">
+          <li>Mon–Fri: 6am–10pm</li>
+          <li>Sat–Sun: 8am–6pm</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="mailto:hello@simplygym.example">hello@simplygym.example</a></li>
+          <li><a href="tel:+10000000000">(000) 000-0000</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Simply Gym. All rights reserved.</span>
+      <span>123 Main Street, Your Town</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Mobile nav toggle
+  const navToggle = document.getElementById('navToggle');
+  const navLinks = document.getElementById('nav-links');
+  navToggle.addEventListener('click', () => {
+    const isOpen = navLinks.classList.toggle('open');
+    navToggle.setAttribute('aria-expanded', String(isOpen));
+  });
+  navLinks.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      navLinks.classList.remove('open');
+      navToggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  // Booking form: submits to FormSubmit (https://formsubmit.co), which emails
+  // the entry straight to the gym's inbox. No backend or signup required.
+  // Note: the first submission from a new email address triggers a one-time
+  // "confirm your email" link from FormSubmit — click it once to activate delivery.
+  const form = document.getElementById('bookingForm');
+  const status = document.getElementById('formStatus');
+  form.addEventListener('submit', () => {
+    const name = document.getElementById('name').value.trim();
+    status.textContent = `Thanks${name ? ', ' + name.split(' ')[0] : ''} — sending your request now...`;
+    // Form submits normally (no preventDefault) so FormSubmit receives it and
+    // redirects back; the status text above shows briefly before that redirect.
+  });
+</script>
+
+</body>
+</html>
